@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace HomeWork23
 {
-    public enum Next
+    public enum Analysis
     {
         First,
-        Cifra,
-        CifraAndSeparatorZ,
-        CifraAndSeparatorT
+        SignCheck,
+        FirstCifra,
+        Point,
+        LastCifra,
+        Error,
+        End
     }
 }

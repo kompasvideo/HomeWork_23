@@ -8,34 +8,45 @@ namespace HomeWork23
 {
     public static class Convert
     {
-        static Next next = Next.First;
+        static MyChar next;
         public static double ConvertToDouble(string str)
         {
-            foreach (char c in str)
+            double result = 0;
+            bool minus = false;
+            double divider = 1;
+
+            for (int i = 0; i < str.Length; i++)
             {
-                if(Symbol.IsCorrectSymbol(c))
+                char currentChar = str[i];
+                next = Symbol.GetSymbol(currentChar);
+                var process = Symbol.MoveNext(next);
+                switch (process)
                 {
-                    if (next == Next.First)
-                    {
-                        if (Symbol.IsFirst(c))
-                        {
-                            next = Next.CifraAndSeparatorT;
-                        }
-                    }   
-                    else if (next == Next.CifraAndSeparatorT)
-                    {
-
-                    }
-                    else if (next == Next.CifraAndSeparatorZ)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
+                    case ProcessState.Start:
+                        break;
+                    case ProcessState.SignCheck:
+                        if (currentChar == '-')
+                            minus = true;
+                        break;
+                    case ProcessState.FirstPart:
+                        result *= 10;
+                        result += (currentChar - '0');
+                        break;
+                    case ProcessState.Point:
+                        break;
+                    case ProcessState.LastPart:
+                        divider *= 10;
+                        result += (currentChar - '0') / divider;
+                        break;
+                    case ProcessState.Error:
+                        break;
+                    case ProcessState.Finish:
+                        break;
+                    default:
+                        break;
                 }
             }
+            return minus ? -result : result;
             return 0;
         }
     }

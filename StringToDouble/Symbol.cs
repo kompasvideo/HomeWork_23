@@ -8,30 +8,37 @@ namespace HomeWork23
 {
     public static class Symbol
     {
-        static readonly string  correctSynbols = "0123456789,.-+ ";
+        static Analysis currentState;
 
-        /// <summary>
-        /// Проверка что символ корректен, проверка на "0123456789,.-+ "
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public static bool IsCorrectSymbol(char c)
-        {            
-            return correctSynbols.Contains(c);
-        }
-
-        static readonly string firstSynbols = "0123456789,.-+";
-        /// <summary>
-        /// Проверка что символ ","  проверка на "0123456789,.-+ "
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public static bool IsFirst(char c)
+        public static MyChar GetSymbol(char c)
         {
-            return firstSynbols.Contains(c);
+            switch (c)
+            {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    return MyChar.Cifra;
+                case '-':
+                case '+':
+                    return MyChar.Sign;
+                case '.':
+                case ',':
+                    return MyChar.Separator;
+                default:
+                    return MyChar.Other;
+            }
         }
-
-
-        CifraAndSeparatorT
+        public Analysis MoveNext(MyChar symbol)
+        {
+            currentState = GetNext(symbol);
+            return CurrentState;
+        }
     }
 }
